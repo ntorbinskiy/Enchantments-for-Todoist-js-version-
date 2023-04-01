@@ -79,7 +79,8 @@ const setPageStyles = ({
   }
 
   if (
-    projectName?.parentElement &&
+    projectName.parentElement &&
+    projectName.parentElement &&
     projectName?.parentElement !== headerOfProject
   ) {
     projectName.parentElement.style.gridRowStart = 2;

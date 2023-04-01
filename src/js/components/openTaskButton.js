@@ -31,6 +31,7 @@ const setupSvg = (iconSvg, iconRect, iconLine, iconPath) => {
 
   return iconSvg;
 };
+
 const setButtonStyles = (button) => {
   button.className = "button-href";
   button.style.height = "24px";
