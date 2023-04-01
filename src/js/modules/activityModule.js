@@ -67,7 +67,7 @@ const isTaskCorrect = (regexForScoreAndPoints) => {
 
     const taskTime = taskItem.querySelector("span.activity_time");
 
-    const taskName = taskItem.querySelector(".markdown_content").textContent;
+    const taskName = taskItem.querySelector(".task_content").textContent;
 
     const taskText = taskItem.querySelector(".text");
 
