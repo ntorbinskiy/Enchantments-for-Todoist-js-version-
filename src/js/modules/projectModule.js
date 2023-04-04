@@ -79,9 +79,9 @@ const setPageStyles = ({
   }
 
   if (
+    projectName &&
     projectName.parentElement &&
-    projectName.parentElement &&
-    projectName?.parentElement !== headerOfProject
+    projectName.parentElement !== headerOfProject
   ) {
     projectName.parentElement.style.gridRowStart = 2;
     headerOfProject.style.alignItems = "center";
