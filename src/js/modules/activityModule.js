@@ -6,7 +6,7 @@ import {
 } from "../components/scoreBlock";
 import nodeToArray from "../helpers/nodeToArray";
 
-const isCompleteTask = (svgPath) => {
+const isTaskCompleted = (svgPath) => {
   const completedImagePath = "sm1/notification_completed.svg";
 
   return svgPath === completedImagePath;
@@ -17,7 +17,7 @@ const getItemScore = (name, regex) => {
   return parseInt(scoreText) || undefined;
 };
 
-const getItemsScores = (tasks, getItemScore, regexForScoreAndPoints) => {
+const getItemsScores = (tasks, regexForScoreAndPoints) => {
   return tasks.map((task) => {
     const taskChildNodes = nodeToArray(task.childNodes);
 
@@ -26,7 +26,7 @@ const getItemsScores = (tasks, getItemScore, regexForScoreAndPoints) => {
         const svgPathOfItemChildNode =
           taskChildNode.querySelector("svg").dataset.svgsPath;
 
-        if (isCompleteTask(svgPathOfItemChildNode)) {
+        if (isTaskCompleted(svgPathOfItemChildNode)) {
           const itemScore = getItemScore(
             taskChildNode.innerText,
             regexForScoreAndPoints
@@ -61,7 +61,7 @@ const isTaskCorrect = (regexForScoreAndPoints) => {
   nodeToArray(taskIcons).map((taskIcon) => {
     const taskItem = taskIcon.parentElement.parentElement;
 
-    if (!isCompleteTask(taskIcon.querySelector("svg").dataset.svgsPath)) {
+    if (!isTaskCompleted(taskIcon.querySelector("svg").dataset.svgsPath)) {
       return;
     }
 
@@ -97,11 +97,9 @@ const activityModule = () => {
   const tasksArray = nodeToArray(tasks);
   const regexForScoreAndPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
 
-  getItemsScores(tasksArray, getItemScore, regexForScoreAndPoints).map(
-    (points, index) => {
-      return postCounterToPage(points, index, sectionsOfTasks);
-    }
-  );
+  getItemsScores(tasksArray, regexForScoreAndPoints).map((points, index) => {
+    return postCounterToPage(points, index, sectionsOfTasks);
+  });
 
   isTaskCorrect(regexForScoreAndPoints);
 };
