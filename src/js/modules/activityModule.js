@@ -17,28 +17,32 @@ const getItemScore = (name, regex) => {
   return parseInt(scoreText) || undefined;
 };
 
-const getItemsScores = (tasks, regexForScoreAndPoints) => {
-  return tasks.map((task) => {
-    const taskChildNodes = nodeToArray(task.childNodes);
+const getTasksScores = (childNodes, regexForScoreAndPoints) => {
+  const taskChildNodes = nodeToArray(childNodes);
 
-    return taskChildNodes
-      .map((taskChildNode) => {
-        const svgPathOfItemChildNode =
-          taskChildNode.querySelector("svg").dataset.svgsPath;
+  return taskChildNodes
+    .map((taskChildNode) => {
+      const svgPathOfItemChildNode =
+        taskChildNode.querySelector("svg").dataset.svgsPath;
 
-        if (isTaskCompleted(svgPathOfItemChildNode)) {
-          const itemScore = getItemScore(
-            taskChildNode.innerText,
-            regexForScoreAndPoints
-          );
+      if (isTaskCompleted(svgPathOfItemChildNode)) {
+        const itemScore = getItemScore(
+          taskChildNode.innerText,
+          regexForScoreAndPoints
+        );
 
-          return itemScore ?? 0;
-        } else {
-          return 0;
-        }
-      })
-      .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-  });
+        return itemScore ?? 0;
+      } else {
+        return 0;
+      }
+    })
+    .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+};
+
+const mapTasks = (tasks, regexForScoreAndPoints) => {
+  return tasks.map((task) =>
+    getTasksScores(task.childNodes, regexForScoreAndPoints)
+  );
 };
 
 const postCounterToPage = (points, indexOfParent, parent) => {
@@ -97,7 +101,7 @@ const activityModule = () => {
   const tasksArray = nodeToArray(tasks);
   const regexForScoreAndPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
 
-  getItemsScores(tasksArray, regexForScoreAndPoints).map((points, index) => {
+  mapTasks(tasksArray, regexForScoreAndPoints).map((points, index) => {
     return postCounterToPage(points, index, sectionsOfTasks);
   });
 
