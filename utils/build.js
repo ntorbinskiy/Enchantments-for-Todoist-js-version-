@@ -3,9 +3,9 @@ import config from "../webpack.config.js";
 
 const { chromeExtensionBoilerplate, ...configWithoutBoilerplate } = config;
 
-webpack(configWithoutBoilerplate, (err, stats) => {
-  if (err) {
-    throw err;
+webpack(configWithoutBoilerplate, (error, stats) => {
+  if (error) {
+    throw error;
   }
 
   if (stats.hasErrors()) {
