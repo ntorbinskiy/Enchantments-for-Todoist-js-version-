@@ -40,9 +40,9 @@ const getTasksScores = (childNodes, regexForScoreAndPoints) => {
 };
 
 const mapTasks = (tasks, regexForScoreAndPoints) => {
-  return tasks.map((task) =>
-    getTasksScores(task.childNodes, regexForScoreAndPoints)
-  );
+  return tasks.map((task) => {
+    return getTasksScores(task.childNodes, regexForScoreAndPoints);
+  });
 };
 
 const postCounterToPage = (points, indexOfParent, parent) => {
@@ -53,6 +53,7 @@ const postCounterToPage = (points, indexOfParent, parent) => {
   if (!scoreBlockElement) {
     const scoreBlock = createScoreBlock(scoreBlockParent, points);
     scoreBlockParent.append(scoreBlock);
+
     return;
   }
 
@@ -70,9 +71,7 @@ const isTaskCorrect = (regexForScoreAndPoints) => {
     }
 
     const taskTime = taskItem.querySelector("span.activity_time");
-
     const taskName = taskItem.querySelector(".task_content").textContent;
-
     const taskText = taskItem.querySelector(".text");
 
     const score = getItemScore(taskName, regexForScoreAndPoints);
@@ -89,8 +88,6 @@ const isTaskCorrect = (regexForScoreAndPoints) => {
       const noPoints = createNoPoints(noPointsOptions);
 
       taskText.after(noPoints);
-
-      return;
     }
   });
 };

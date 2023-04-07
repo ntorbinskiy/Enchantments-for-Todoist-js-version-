@@ -9,27 +9,27 @@ import {
 const linkLogic = () => {
   const listOfTasks = document.getElementsByClassName("items");
 
-  nodeToArray(listOfTasks).map((task) =>
-    nodeToArray(task.childNodes).map((taskChildNode) => {
+  nodeToArray(listOfTasks).map((task) => {
+    return nodeToArray(task.childNodes).map((taskChildNode) => {
       const buttonLinkParent = taskChildNode.querySelector(
         ".task_list_item__actions--active"
-      )?.childNodes;
+      );
 
       if (!buttonLinkParent) {
         return;
       }
 
       taskChildNode.addEventListener("mouseenter", () => {
-        if (buttonLinkParent[0].className !== "button-href") {
+        if (!buttonLinkParent.querySelector("button.button-href")) {
           const openTaskButton = createOpenTaskButton(
             taskChildNode.dataset.itemId
           );
 
-          buttonLinkParent[0].before(openTaskButton);
+          buttonLinkParent.prepend(openTaskButton);
         }
       });
-    })
-  );
+    });
+  });
 };
 
 const getTotalPoints = (namesOfTasks) => {
