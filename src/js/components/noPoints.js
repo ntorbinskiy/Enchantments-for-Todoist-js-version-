@@ -1,5 +1,5 @@
 const NO_POINTS = "NO_POINTS";
-const limitOfSignsPerTask = 86;
+const limitOfCharactersPerTask = 86;
 
 const setStylesForNoPoints = ({ taskItem, taskTime, taskName, noPoints }) => {
   taskItem.style.backgroundColor = "rgba(246, 193, 4, 0.11)";
@@ -8,7 +8,7 @@ const setStylesForNoPoints = ({ taskItem, taskTime, taskName, noPoints }) => {
 
   taskTime.id = NO_POINTS;
 
-  if (taskName.length >= limitOfSignsPerTask) {
+  if (taskName.length >= limitOfCharactersPerTask) {
     noPoints.style.left = "64px";
   }
 
