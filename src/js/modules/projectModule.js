@@ -22,7 +22,7 @@ const linkLogic = () => {
       taskChildNode.addEventListener("mouseenter", () => {
         if (!buttonLinkParent.querySelector("button.button-href")) {
           const openTaskButton = createOpenTaskButton(
-            taskChildNode.dataset.itemId
+            taskChildNode.childNodes[0].dataset.itemId
           );
 
           buttonLinkParent.prepend(openTaskButton);
