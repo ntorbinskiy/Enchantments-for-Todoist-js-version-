@@ -7,10 +7,10 @@ import {
 } from "../components/totalPoints";
 
 const linkLogic = () => {
-  const listOfTasks = document.getElementsByClassName("items");
+  const listOfItems = document.querySelectorAll("ul.items");
 
-  nodeToArray(listOfTasks).map((task) => {
-    return nodeToArray(task.childNodes).map((taskChildNode) => {
+  nodeToArray(listOfItems).map((task) => {
+    return nodeToArray(task.childNodes[0].childNodes).map((taskChildNode) => {
       const buttonLinkParent = taskChildNode.querySelector(
         ".task_list_item__actions--active"
       );
