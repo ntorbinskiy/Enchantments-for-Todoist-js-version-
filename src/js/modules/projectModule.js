@@ -7,27 +7,25 @@ import {
 } from "../components/totalPoints";
 
 const linkLogic = () => {
-  const listOfItems = document.querySelectorAll("ul.items");
+  const listOfItems = document.querySelectorAll(
+    "li[class='task_list_item task_list_item--project_hidden']"
+  );
 
   nodeToArray(listOfItems).map((task) => {
-    return nodeToArray(task.childNodes[0].childNodes).map((taskChildNode) => {
-      const buttonLinkParent = taskChildNode.querySelector(
-        ".task_list_item__actions--active"
-      );
+    const buttonLinkParent = task.querySelector(
+      ".task_list_item__actions--active"
+    );
 
-      if (!buttonLinkParent) {
-        return;
+    if (!buttonLinkParent) {
+      return;
+    }
+
+    task.addEventListener("mouseenter", () => {
+      if (!buttonLinkParent.querySelector("button.button-href")) {
+        const openTaskButton = createOpenTaskButton(task.dataset.itemId);
+
+        buttonLinkParent.prepend(openTaskButton);
       }
-
-      taskChildNode.addEventListener("mouseenter", () => {
-        if (!buttonLinkParent.querySelector("button.button-href")) {
-          const openTaskButton = createOpenTaskButton(
-            taskChildNode.childNodes[0].dataset.itemId
-          );
-
-          buttonLinkParent.prepend(openTaskButton);
-        }
-      });
     });
   });
 };
