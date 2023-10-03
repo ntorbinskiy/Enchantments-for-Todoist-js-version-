@@ -95,10 +95,10 @@ const isTaskCorrect = (regexForScoreAndPoints) => {
 const activityModule = () => {
   const sectionsOfTasks = document.getElementsByClassName("section");
   const tasks = document.querySelectorAll("ul.items");
-  const tasksArray = nodeToArray(tasks);
+
   const regexForScoreAndPoints = /^.*\[(?<score>\d+)\]\s*.*$/;
 
-  mapTasks(tasksArray, regexForScoreAndPoints).map((points, index) => {
+  mapTasks(nodeToArray(tasks), regexForScoreAndPoints).map((points, index) => {
     return postCounterToPage(points, index, sectionsOfTasks);
   });
 
